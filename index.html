@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
 
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>
-SMART AQUACULTURE GIS PLATFORM
+Smart Aquaculture Dashboard
 </title>
 
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
@@ -31,9 +31,11 @@ body{
 }
 
 body{
-    background:#06131f;
+
+    background:#07111d;
     color:#fff;
     font-family:'Cairo',sans-serif;
+
 }
 
 /* BACKGROUND */
@@ -48,91 +50,75 @@ body::before{
 
     background:
     radial-gradient(circle at top right,#00ffb31c,transparent 30%),
-    radial-gradient(circle at bottom left,#008cff1c,transparent 30%);
+    radial-gradient(circle at bottom left,#0ea5e91f,transparent 30%);
 
     z-index:-1;
 
 }
 
-/* TOPBAR */
+/* =========================
+   TOPBAR
+========================= */
 
 .topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 24px;
 
     background:
     linear-gradient(
     90deg,
     #07121f,
-    #0b2036,
-    #081725
+    #0c2034,
+    #07121f
     );
-
-    padding:12px 22px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
     position:sticky;
-
     top:0;
-
     z-index:999;
 
-    gap:20px;
+    gap:15px;
 
 }
 
-/* BRAND */
+/* LOGO */
 
 .brand{
 
     display:flex;
-
     align-items:center;
-
-    gap:20px;
+    gap:16px;
 
 }
 
 .brand img{
 
-    width:95px;
-
-    height:95px;
-
+    width:90px;
+    height:90px;
     object-fit:contain;
-
-    filter:
-    drop-shadow(0 0 12px rgba(255,255,255,.15));
 
 }
 
 .brand-text h1{
 
     font-size:24px;
-
     font-family:'Orbitron',sans-serif;
-
     line-height:1.4;
-
-    letter-spacing:1px;
 
 }
 
 .brand-text span{
 
     display:block;
+    margin-top:5px;
 
     color:#67e8f9;
-
-    font-size:15px;
-
-    margin-top:6px;
-
+    font-size:14px;
     font-weight:700;
 
 }
@@ -142,29 +128,24 @@ body::before{
 .top-icons{
 
     display:flex;
-
     gap:10px;
 
 }
 
 .icon-btn{
 
-    width:48px;
-
-    height:48px;
+    width:46px;
+    height:46px;
 
     border:none;
-
     border-radius:14px;
 
     background:rgba(255,255,255,.08);
 
     color:#fff;
-
     font-size:20px;
 
     cursor:pointer;
-
     transition:.3s;
 
 }
@@ -175,156 +156,78 @@ body::before{
 
 }
 
-/* MENU */
+/* =========================
+   MENU
+========================= */
 
 .menu{
 
-    background:#07131f;
-
     display:flex;
-
     gap:10px;
 
     padding:12px 18px;
 
-    border-bottom:1px solid rgba(255,255,255,.06);
-
     overflow-x:auto;
+
+    background:#081521;
 
     scrollbar-width:none;
 
 }
 
 .menu::-webkit-scrollbar{
-
     display:none;
-
 }
 
 .menu a{
 
     text-decoration:none;
-
     color:#fff;
 
-    background:#102437;
+    background:#122536;
 
     padding:10px 18px;
 
     border-radius:12px;
 
-    transition:.3s;
-
     white-space:nowrap;
 
+    font-size:14px;
     font-weight:700;
 
-    font-size:14px;
+    transition:.3s;
 
 }
 
-.menu a:hover,
-.menu a.active{
+.menu a.active,
+.menu a:hover{
 
     background:#0ea5e9;
 
 }
 
-/* MAIN */
+/* =========================
+   MAIN GRID
+========================= */
 
 .main{
 
-    padding:18px;
-
     display:grid;
 
-    grid-template-columns:1.8fr 1fr;
+    grid-template-columns:
+    1.5fr 1fr;
 
     gap:18px;
+
+    padding:18px;
 
     align-items:start;
 
 }
 
-/* MAP CARD */
+/* CARD */
 
-.map-card{
-
-    background:#0c1a29;
-
-    border-radius:22px;
-
-    overflow:hidden;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:0 0 25px rgba(0,0,0,.35);
-
-}
-
-.map-header{
-
-    padding:15px 20px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
-    flex-wrap:wrap;
-
-    gap:10px;
-
-}
-
-.map-header h2{
-
-    font-size:22px;
-
-    color:#67e8f9;
-
-}
-
-.map-header span{
-
-    background:#0ea5e9;
-
-    padding:6px 14px;
-
-    border-radius:10px;
-
-    font-size:13px;
-
-    font-weight:700;
-
-}
-
-/* MAP */
-
-#map{
-
-    height:420px;
-
-}
-
-/* SIDE */
-
-.side-panel{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:16px;
-
-}
-
-/* PANEL */
-
-.panel-card{
+.card{
 
     background:#0c1a29;
 
@@ -332,31 +235,49 @@ body::before{
 
     padding:18px;
 
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.06);
 
     box-shadow:0 0 20px rgba(0,0,0,.25);
 
 }
 
-.panel-title{
+/* TITLES */
+
+.section-title{
 
     font-size:22px;
+    color:#67e8f9;
 
     margin-bottom:18px;
 
-    color:#67e8f9;
-
-    line-height:1.6;
+    line-height:1.5;
 
 }
 
-/* KPI */
+/* =========================
+   MAP
+========================= */
 
-.kpis{
+#map{
+
+    width:100%;
+    height:380px;
+
+    border-radius:18px;
+    overflow:hidden;
+
+}
+
+/* =========================
+   KPI
+========================= */
+
+.kpi-grid{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+    repeat(2,1fr);
 
     gap:12px;
 
@@ -367,13 +288,13 @@ body::before{
     background:
     linear-gradient(
     145deg,
-    #11273b,
+    #12283c,
     #18344d
     );
 
     border-radius:16px;
 
-    padding:16px;
+    padding:18px;
 
     text-align:center;
 
@@ -382,52 +303,51 @@ body::before{
 .kpi h3{
 
     font-size:13px;
-
-    margin-bottom:8px;
-
     color:#cbd5e1;
 
-    line-height:1.6;
+    line-height:1.7;
+
+    margin-bottom:10px;
 
 }
 
 .kpi p{
 
     font-size:28px;
-
     font-weight:800;
 
     color:#00ffb3;
 
 }
 
-/* CHARTS */
+/* =========================
+   CHARTS
+========================= */
 
 .charts-slider{
 
     position:relative;
-
-    min-height:270px;
+    min-height:260px;
 
 }
 
-.chart-box{
+.chart-slide{
 
     display:none;
 
 }
 
-.chart-box.active-slide{
+.chart-slide.active{
 
     display:block;
 
     animation:
-    smoothSlide 1s ease,
-    glowChart 2s ease;
+    slideAnim 1s ease,
+    glowAnim 2s ease;
 
 }
 
-@keyframes smoothSlide{
+@keyframes slideAnim{
 
     0%{
         opacity:0;
@@ -445,10 +365,10 @@ body::before{
 
 }
 
-@keyframes glowChart{
+@keyframes glowAnim{
 
     0%{
-        filter:brightness(.7);
+        filter:brightness(.8);
     }
 
     50%{
@@ -461,31 +381,27 @@ body::before{
 
 }
 
-.chart-box-inner{
+.chart-box{
 
-    background:#11273b;
+    background:#12283c;
 
     border-radius:18px;
 
-    padding:16px;
+    padding:15px;
 
 }
 
-.chart-title{
+.chart-header{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
-    margin-bottom:16px;
-
-    font-size:14px;
+    margin-bottom:12px;
 
     color:#67e8f9;
 
-    gap:10px;
+    font-size:14px;
 
     flex-wrap:wrap;
 
@@ -494,10 +410,6 @@ body::before{
 .chart{
 
     height:180px;
-
-    border-left:2px solid rgba(255,255,255,.2);
-
-    border-bottom:2px solid rgba(255,255,255,.2);
 
 }
 
@@ -508,17 +420,106 @@ body::before{
 
 }
 
-/* ANALYSIS */
+/* =========================
+   WORKFLOW
+========================= */
+
+.table-wrap{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    min-width:650px;
+
+}
+
+th,
+td{
+
+    padding:12px;
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    font-size:13px;
+
+}
+
+th{
+
+    background:#122536;
+    color:#67e8f9;
+
+}
+
+/* STATUS */
+
+.status{
+
+    padding:6px 12px;
+
+    border-radius:10px;
+
+    font-size:12px;
+    font-weight:700;
+
+}
+
+.green{
+
+    background:#0d4b37;
+    color:#00ffb3;
+
+}
+
+.orange{
+
+    background:#4b340d;
+    color:#ffcc66;
+
+    animation:flash 1.2s infinite;
+
+}
+
+.red{
+
+    background:#4b0d0d;
+    color:#ff7b7b;
+
+}
+
+@keyframes flash{
+
+    50%{
+        box-shadow:0 0 15px rgba(255,204,102,.9);
+    }
+
+}
+
+/* =========================
+   ANALYSIS BARS
+========================= */
+
+.analysis{
+
+    margin-top:15px;
+
+}
 
 .analysis-item{
 
-    background:#11273b;
-
-    padding:14px;
+    background:#12283c;
 
     border-radius:14px;
 
-    margin-top:12px;
+    padding:14px;
+
+    margin-bottom:12px;
 
 }
 
@@ -529,8 +530,6 @@ body::before{
     margin-bottom:10px;
 
     color:#67e8f9;
-
-    line-height:1.7;
 
 }
 
@@ -561,118 +560,23 @@ body::before{
 
 }
 
-/* WORKFLOW */
-
-.workflow{
-
-    overflow-x:auto;
-
-}
-
-.workflow table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    min-width:650px;
-
-}
-
-.workflow th,
-.workflow td{
-
-    padding:12px;
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-
-    text-align:center;
-
-    font-size:13px;
-
-}
-
-.workflow th{
-
-    background:#102437;
-
-    color:#67e8f9;
-
-}
-
-/* STATUS */
-
-.status{
-
-    padding:6px 12px;
-
-    border-radius:10px;
-
-    font-size:13px;
-
-    font-weight:700;
-
-}
-
-.green{
-
-    background:#0d4b37;
-
-    color:#00ffb3;
-
-}
-
-.orange{
-
-    background:#4b340d;
-
-    color:#ffcc66;
-
-    animation:pendingFlash 1.2s infinite;
-
-}
-
-.red{
-
-    background:#4b0d0d;
-
-    color:#ff7b7b;
-
-}
-
-@keyframes pendingFlash{
-
-    0%{
-        box-shadow:0 0 0 rgba(255,204,102,.2);
-    }
-
-    50%{
-        box-shadow:0 0 18px rgba(255,204,102,.8);
-    }
-
-    100%{
-        box-shadow:0 0 0 rgba(255,204,102,.2);
-    }
-
-}
-
 /* FOOTER */
 
 .footer{
 
     text-align:center;
 
+    padding:20px;
+
     color:#94a3b8;
 
     font-size:14px;
 
-    padding:20px;
-
-    line-height:2;
-
 }
 
-/* MOBILE */
+/* =========================
+   TABLET
+========================= */
 
 @media(max-width:1100px){
 
@@ -684,15 +588,18 @@ body::before{
 
 }
 
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:768px){
 
     .topbar{
 
         flex-direction:column;
-
         text-align:center;
 
-        padding:15px;
+        padding:16px;
 
     }
 
@@ -700,14 +607,12 @@ body::before{
 
         flex-direction:column;
 
-        gap:12px;
-
     }
 
     .brand img{
 
-        width:80px;
-        height:80px;
+        width:75px;
+        height:75px;
 
     }
 
@@ -719,7 +624,14 @@ body::before{
 
     .brand-text span{
 
-        font-size:14px;
+        font-size:13px;
+
+    }
+
+    .top-icons{
+
+        width:100%;
+        justify-content:center;
 
     }
 
@@ -727,25 +639,84 @@ body::before{
 
         padding:14px;
 
+        gap:14px;
+
     }
 
     #map{
 
-        height:320px;
+        height:280px;
 
     }
 
-    .kpis{
+    .section-title{
+
+        font-size:19px;
+        text-align:center;
+
+    }
+
+    .kpi-grid{
 
         grid-template-columns:1fr;
 
     }
 
-    .chart-title{
+    .kpi p{
+
+        font-size:24px;
+
+    }
+
+    .chart-header{
 
         flex-direction:column;
-
         text-align:center;
+        gap:6px;
+
+    }
+
+    .chart{
+
+        height:170px;
+
+    }
+
+    th,
+    td{
+
+        font-size:12px;
+
+    }
+
+}
+
+/* SMALL MOBILE */
+
+@media(max-width:480px){
+
+    .menu a{
+
+        font-size:13px;
+        padding:10px 14px;
+
+    }
+
+    .card{
+
+        padding:14px;
+
+    }
+
+    .brand-text h1{
+
+        font-size:16px;
+
+    }
+
+    #map{
+
+        height:240px;
 
     }
 
@@ -794,23 +765,23 @@ body::before{
 <div class="menu">
 
     <a href="#" class="active">
-        Dashboard | لوحة التحكم
+        Dashboard
     </a>
 
     <a href="#">
-        Applications | الطلبات
+        Applications
     </a>
 
     <a href="#">
-        Compliance | الامتثال
+        GIS Maps
     </a>
 
     <a href="#">
-        GIS Maps | الخرائط الذكية
+        Compliance
     </a>
 
     <a href="#">
-        Reports | التقارير
+        Reports
     </a>
 
 </div>
@@ -825,17 +796,11 @@ body::before{
 
         <!-- MAP -->
 
-        <div class="map-card">
+        <div class="card">
 
-            <div class="map-header">
+            <div class="section-title">
 
-                <h2>
-                    GIS SMART MAP | خريطة البحرين الذكية
-                </h2>
-
-                <span>
-                    Live Monitoring
-                </span>
+                GIS SMART MAP | خريطة البحرين الذكية
 
             </div>
 
@@ -845,9 +810,9 @@ body::before{
 
         <!-- WORKFLOW -->
 
-        <div class="panel-card workflow" style="margin-top:18px;">
+        <div class="card" style="margin-top:18px;">
 
-            <div class="panel-title">
+            <div class="section-title">
 
                 Smart Approval Workflow
                 <br>
@@ -855,68 +820,72 @@ body::before{
 
             </div>
 
-            <table>
+            <div class="table-wrap">
 
-                <thead>
+                <table>
 
-                    <tr>
+                    <thead>
 
-                        <th>Application</th>
-                        <th>Stage</th>
-                        <th>Authority</th>
-                        <th>Status</th>
+                        <tr>
 
-                    </tr>
+                            <th>Application</th>
+                            <th>Stage</th>
+                            <th>Authority</th>
+                            <th>Status</th>
 
-                </thead>
+                        </tr>
 
-                <tbody>
+                    </thead>
 
-                    <tr>
+                    <tbody>
 
-                        <td>Farm A</td>
-                        <td>GIS Review</td>
-                        <td>SCE</td>
+                        <tr>
 
-                        <td>
-                            <span class="status green">
-                                Approved
-                            </span>
-                        </td>
+                            <td>Farm A</td>
+                            <td>GIS Review</td>
+                            <td>SCE</td>
 
-                    </tr>
+                            <td>
+                                <span class="status green">
+                                    Approved
+                                </span>
+                            </td>
 
-                    <tr>
+                        </tr>
 
-                        <td>Farm B</td>
-                        <td>Municipality</td>
-                        <td>MOIC</td>
+                        <tr>
 
-                        <td>
-                            <span class="status orange">
-                                Pending
-                            </span>
-                        </td>
+                            <td>Farm B</td>
+                            <td>Municipality</td>
+                            <td>MOIC</td>
 
-                    </tr>
+                            <td>
+                                <span class="status orange">
+                                    Pending
+                                </span>
+                            </td>
 
-                    <tr>
+                        </tr>
 
-                        <td>Farm C</td>
-                        <td>Inspection</td>
-                        <td>Environment</td>
+                        <tr>
 
-                        <td>
-                            <span class="status red">
-                                Restricted
-                            </span>
-                        </td>
+                            <td>Farm C</td>
+                            <td>Inspection</td>
+                            <td>Environment</td>
 
-                    </tr>
+                            <td>
+                                <span class="status red">
+                                    Restricted
+                                </span>
+                            </td>
 
-                </tbody>
+                        </tr>
 
-            </table>
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 
@@ -924,13 +893,13 @@ body::before{
 
     <!-- RIGHT -->
 
-    <div class="side-panel">
+    <div>
 
         <!-- KPI -->
 
-        <div class="panel-card">
+        <div class="card">
 
-            <div class="panel-title">
+            <div class="section-title">
 
                 KPI Dashboard
                 <br>
@@ -938,37 +907,57 @@ body::before{
 
             </div>
 
-            <div class="kpis">
+            <div class="kpi-grid">
 
                 <div class="kpi">
-                    <h3>Active Licenses</h3>
+
+                    <h3>
+                        Active Licenses
+                    </h3>
+
                     <p>145</p>
+
                 </div>
 
                 <div class="kpi">
-                    <h3>Production Tons</h3>
+
+                    <h3>
+                        Production Tons
+                    </h3>
+
                     <p>2,800</p>
+
                 </div>
 
                 <div class="kpi">
-                    <h3>Water Quality</h3>
+
+                    <h3>
+                        Water Quality
+                    </h3>
+
                     <p>92%</p>
+
                 </div>
 
                 <div class="kpi">
-                    <h3>AI Risk Index</h3>
+
+                    <h3>
+                        AI Risk Index
+                    </h3>
+
                     <p>14%</p>
+
                 </div>
 
             </div>
 
         </div>
 
-        <!-- AI ANALYSIS -->
+        <!-- AI -->
 
-        <div class="panel-card">
+        <div class="card" style="margin-top:18px;">
 
-            <div class="panel-title">
+            <div class="section-title">
 
                 AI Environmental Analysis
                 <br>
@@ -978,58 +967,54 @@ body::before{
 
             <div class="charts-slider">
 
-                <!-- SLIDE 1 -->
+                <!-- CHART 1 -->
 
-                <div class="chart-box active-slide">
+                <div class="chart-slide active">
 
-                    <div class="chart-box-inner">
+                    <div class="chart-box">
 
-                        <div class="chart-title">
+                        <div class="chart-header">
 
-                            <span>Marine Water Quality</span>
+                            <span>
+                                Marine Water Quality
+                            </span>
 
-                            <span>جودة المياه البحرية</span>
+                            <span>
+                                92%
+                            </span>
 
                         </div>
 
                         <div class="chart">
 
-                            <svg viewBox="0 0 400 160">
+                            <svg viewBox="0 0 400 180">
 
                                 <text x="5" y="20" fill="#9ca3af" font-size="11">100</text>
-                                <text x="5" y="55" fill="#9ca3af" font-size="11">80</text>
-                                <text x="5" y="90" fill="#9ca3af" font-size="11">60</text>
-                                <text x="5" y="125" fill="#9ca3af" font-size="11">40</text>
+                                <text x="5" y="60" fill="#9ca3af" font-size="11">80</text>
+                                <text x="5" y="100" fill="#9ca3af" font-size="11">60</text>
+                                <text x="5" y="140" fill="#9ca3af" font-size="11">40</text>
 
-                                <text x="40" y="155" fill="#9ca3af" font-size="11">Jan</text>
-                                <text x="100" y="155" fill="#9ca3af" font-size="11">Feb</text>
-                                <text x="160" y="155" fill="#9ca3af" font-size="11">Mar</text>
-                                <text x="220" y="155" fill="#9ca3af" font-size="11">Apr</text>
-                                <text x="280" y="155" fill="#9ca3af" font-size="11">May</text>
-                                <text x="340" y="155" fill="#9ca3af" font-size="11">Jun</text>
+                                <text x="40" y="170" fill="#9ca3af" font-size="11">Jan</text>
+                                <text x="100" y="170" fill="#9ca3af" font-size="11">Feb</text>
+                                <text x="160" y="170" fill="#9ca3af" font-size="11">Mar</text>
+                                <text x="220" y="170" fill="#9ca3af" font-size="11">Apr</text>
+                                <text x="280" y="170" fill="#9ca3af" font-size="11">May</text>
+                                <text x="340" y="170" fill="#9ca3af" font-size="11">Jun</text>
 
                                 <polyline
                                 fill="none"
                                 stroke="#00ffb3"
                                 stroke-width="4"
                                 points="
-                                40,120
-                                90,105
-                                140,92
-                                190,76
+                                40,130
+                                90,118
+                                140,102
+                                190,82
                                 240,62
-                                290,45
+                                290,48
                                 340,28
                                 "
                                 />
-
-                                <circle cx="340" cy="28" r="6" fill="#00ffb3"/>
-
-                                <text x="280" y="20"
-                                fill="#ffffff"
-                                font-size="13">
-                                92%
-                                </text>
 
                             </svg>
 
@@ -1039,57 +1024,53 @@ body::before{
 
                 </div>
 
-                <!-- SLIDE 2 -->
+                <!-- CHART 2 -->
 
-                <div class="chart-box">
+                <div class="chart-slide">
 
-                    <div class="chart-box-inner">
+                    <div class="chart-box">
 
-                        <div class="chart-title">
+                        <div class="chart-header">
 
-                            <span>Oxygen Levels</span>
+                            <span>
+                                Oxygen Levels
+                            </span>
 
-                            <span>مستوى الأكسجين</span>
+                            <span>
+                                8.5 mg/L
+                            </span>
 
                         </div>
 
                         <div class="chart">
 
-                            <svg viewBox="0 0 400 160">
+                            <svg viewBox="0 0 400 180">
 
                                 <text x="5" y="20" fill="#9ca3af" font-size="11">10</text>
-                                <text x="5" y="55" fill="#9ca3af" font-size="11">8</text>
-                                <text x="5" y="90" fill="#9ca3af" font-size="11">6</text>
+                                <text x="5" y="60" fill="#9ca3af" font-size="11">8</text>
+                                <text x="5" y="100" fill="#9ca3af" font-size="11">6</text>
 
-                                <text x="40" y="155" fill="#9ca3af" font-size="11">01</text>
-                                <text x="100" y="155" fill="#9ca3af" font-size="11">02</text>
-                                <text x="160" y="155" fill="#9ca3af" font-size="11">03</text>
-                                <text x="220" y="155" fill="#9ca3af" font-size="11">04</text>
-                                <text x="280" y="155" fill="#9ca3af" font-size="11">05</text>
-                                <text x="340" y="155" fill="#9ca3af" font-size="11">06</text>
+                                <text x="40" y="170" fill="#9ca3af" font-size="11">01</text>
+                                <text x="100" y="170" fill="#9ca3af" font-size="11">02</text>
+                                <text x="160" y="170" fill="#9ca3af" font-size="11">03</text>
+                                <text x="220" y="170" fill="#9ca3af" font-size="11">04</text>
+                                <text x="280" y="170" fill="#9ca3af" font-size="11">05</text>
+                                <text x="340" y="170" fill="#9ca3af" font-size="11">06</text>
 
                                 <polyline
                                 fill="none"
                                 stroke="#38bdf8"
                                 stroke-width="4"
                                 points="
-                                40,135
-                                90,120
-                                140,110
-                                190,90
-                                240,70
+                                40,145
+                                90,132
+                                140,118
+                                190,98
+                                240,74
                                 290,52
-                                340,38
+                                340,36
                                 "
                                 />
-
-                                <circle cx="340" cy="38" r="6" fill="#38bdf8"/>
-
-                                <text x="250" y="28"
-                                fill="#ffffff"
-                                font-size="13">
-                                8.5 mg/L
-                                </text>
 
                             </svg>
 
@@ -1099,32 +1080,36 @@ body::before{
 
                 </div>
 
-                <!-- SLIDE 3 -->
+                <!-- CHART 3 -->
 
-                <div class="chart-box">
+                <div class="chart-slide">
 
-                    <div class="chart-box-inner">
+                    <div class="chart-box">
 
-                        <div class="chart-title">
+                        <div class="chart-header">
 
-                            <span>BOD / COD Levels</span>
+                            <span>
+                                BOD / COD Levels
+                            </span>
 
-                            <span>مستويات BOD / COD</span>
+                            <span>
+                                COD: 34
+                            </span>
 
                         </div>
 
                         <div class="chart">
 
-                            <svg viewBox="0 0 400 160">
+                            <svg viewBox="0 0 400 180">
 
                                 <text x="5" y="20" fill="#9ca3af" font-size="11">40</text>
-                                <text x="5" y="55" fill="#9ca3af" font-size="11">30</text>
-                                <text x="5" y="90" fill="#9ca3af" font-size="11">20</text>
+                                <text x="5" y="60" fill="#9ca3af" font-size="11">30</text>
+                                <text x="5" y="100" fill="#9ca3af" font-size="11">20</text>
 
-                                <text x="40" y="155" fill="#9ca3af" font-size="11">Q1</text>
-                                <text x="120" y="155" fill="#9ca3af" font-size="11">Q2</text>
-                                <text x="200" y="155" fill="#9ca3af" font-size="11">Q3</text>
-                                <text x="280" y="155" fill="#9ca3af" font-size="11">Q4</text>
+                                <text x="40" y="170" fill="#9ca3af" font-size="11">Q1</text>
+                                <text x="120" y="170" fill="#9ca3af" font-size="11">Q2</text>
+                                <text x="200" y="170" fill="#9ca3af" font-size="11">Q3</text>
+                                <text x="280" y="170" fill="#9ca3af" font-size="11">Q4</text>
 
                                 <polyline
                                 fill="none"
@@ -1132,9 +1117,9 @@ body::before{
                                 stroke-width="4"
                                 points="
                                 40,70
-                                120,88
-                                200,105
-                                280,122
+                                120,92
+                                200,112
+                                280,128
                                 "
                                 />
 
@@ -1143,23 +1128,47 @@ body::before{
                                 stroke="#fb7185"
                                 stroke-width="4"
                                 points="
-                                40,92
-                                120,104
-                                200,118
-                                280,132
+                                40,98
+                                120,112
+                                200,124
+                                280,138
                                 "
                                 />
-
-                                <text x="210" y="28"
-                                fill="#ffffff"
-                                font-size="13">
-                                COD: 34 | BOD: 12
-                                </text>
 
                             </svg>
 
                         </div>
 
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ANALYSIS -->
+
+            <div class="analysis">
+
+                <div class="analysis-item">
+
+                    <h4>
+                        Environmental Safety
+                    </h4>
+
+                    <div class="bar">
+                        <span style="width:91%"></span>
+                    </div>
+
+                </div>
+
+                <div class="analysis-item">
+
+                    <h4>
+                        Smart Risk Prediction
+                    </h4>
+
+                    <div class="bar">
+                        <span style="width:28%"></span>
                     </div>
 
                 </div>
@@ -1194,8 +1203,6 @@ L.map('map').setView(
 10
 );
 
-/* TILE */
-
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 {
@@ -1203,7 +1210,7 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* APPROVED */
+/* GREEN */
 
 L.polygon(
 [
@@ -1220,7 +1227,7 @@ L.polygon(
 }
 ).addTo(map);
 
-/* PENDING */
+/* YELLOW */
 
 L.polygon(
 [
@@ -1237,7 +1244,7 @@ L.polygon(
 }
 ).addTo(map);
 
-/* RESTRICTED */
+/* RED */
 
 L.polygon(
 [
@@ -1257,7 +1264,7 @@ L.polygon(
 /* SLIDER */
 
 const slides =
-document.querySelectorAll('.chart-box');
+document.querySelectorAll('.chart-slide');
 
 let currentSlide = 0;
 
@@ -1265,19 +1272,15 @@ function showSlide(index){
 
     slides.forEach(slide => {
 
-        slide.classList.remove(
-        'active-slide'
-        );
+        slide.classList.remove('active');
 
     });
 
-    slides[index].classList.add(
-    'active-slide'
-    );
+    slides[index].classList.add('active');
 
 }
 
-function nextChart(){
+function nextSlide(){
 
     currentSlide++;
 
@@ -1293,11 +1296,9 @@ function nextChart(){
 
 showSlide(currentSlide);
 
-/* AUTO CHANGE */
-
 setInterval(() => {
 
-    nextChart();
+    nextSlide();
 
 }, 5000);
 
