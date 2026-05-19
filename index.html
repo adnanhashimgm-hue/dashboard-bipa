@@ -4,7 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1, maximum-scale=1"
+/>
 
 <title>
 Smart Aquaculture Dashboard
@@ -19,6 +23,10 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 
 <style>
 
+/* =========================
+   GLOBAL
+========================= */
+
 *{
     margin:0;
     padding:0;
@@ -27,7 +35,11 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 
 html,
 body{
+
+    width:100%;
+    max-width:100%;
     overflow-x:hidden;
+
 }
 
 body{
@@ -35,6 +47,16 @@ body{
     background:#07111d;
     color:#fff;
     font-family:'Cairo',sans-serif;
+
+}
+
+img,
+svg,
+canvas,
+table,
+iframe{
+
+    max-width:100%;
 
 }
 
@@ -62,11 +84,13 @@ body::before{
 
 .topbar{
 
+    width:100%;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    padding:14px 24px;
+    padding:10px 14px;
 
     background:
     linear-gradient(
@@ -78,48 +102,62 @@ body::before{
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
+    gap:10px;
+
     position:sticky;
     top:0;
     z-index:999;
 
-    gap:15px;
-
 }
 
-/* LOGO */
+/* BRAND */
 
 .brand{
 
     display:flex;
     align-items:center;
-    gap:16px;
+    gap:10px;
+
+    min-width:0;
 
 }
 
 .brand img{
 
-    width:90px;
-    height:90px;
+    width:65px;
+    height:65px;
+
     object-fit:contain;
+    flex-shrink:0;
+
+}
+
+.brand-text{
+
+    min-width:0;
 
 }
 
 .brand-text h1{
 
-    font-size:24px;
+    font-size:16px;
     font-family:'Orbitron',sans-serif;
+
     line-height:1.4;
+
+    word-break:break-word;
 
 }
 
 .brand-text span{
 
     display:block;
-    margin-top:5px;
+
+    margin-top:4px;
 
     color:#67e8f9;
-    font-size:14px;
-    font-weight:700;
+
+    font-size:11px;
 
 }
 
@@ -128,31 +166,27 @@ body::before{
 .top-icons{
 
     display:flex;
-    gap:10px;
+    gap:6px;
+
+    flex-shrink:0;
 
 }
 
 .icon-btn{
 
-    width:46px;
-    height:46px;
+    width:38px;
+    height:38px;
 
     border:none;
-    border-radius:14px;
+    border-radius:10px;
 
     background:rgba(255,255,255,.08);
 
     color:#fff;
-    font-size:20px;
+
+    font-size:16px;
 
     cursor:pointer;
-    transition:.3s;
-
-}
-
-.icon-btn:hover{
-
-    background:#0ea5e9;
 
 }
 
@@ -162,12 +196,14 @@ body::before{
 
 .menu{
 
-    display:flex;
-    gap:10px;
+    width:100%;
 
-    padding:12px 18px;
+    display:flex;
+    gap:8px;
 
     overflow-x:auto;
+
+    padding:10px;
 
     background:#081521;
 
@@ -186,42 +222,42 @@ body::before{
 
     background:#122536;
 
-    padding:10px 18px;
+    padding:8px 12px;
 
-    border-radius:12px;
+    border-radius:10px;
 
     white-space:nowrap;
 
-    font-size:14px;
+    font-size:12px;
     font-weight:700;
 
-    transition:.3s;
+    flex-shrink:0;
 
 }
 
-.menu a.active,
-.menu a:hover{
+.menu a.active{
 
     background:#0ea5e9;
 
 }
 
 /* =========================
-   MAIN GRID
+   MAIN
 ========================= */
 
 .main{
 
+    width:100%;
+
     display:grid;
 
     grid-template-columns:
-    1.5fr 1fr;
+    minmax(0,1.4fr)
+    minmax(0,1fr);
 
-    gap:18px;
+    gap:12px;
 
-    padding:18px;
-
-    align-items:start;
+    padding:10px;
 
 }
 
@@ -229,15 +265,18 @@ body::before{
 
 .card{
 
+    width:100%;
+    min-width:0;
+
     background:#0c1a29;
 
-    border-radius:22px;
+    border-radius:16px;
 
-    padding:18px;
+    padding:12px;
+
+    overflow:hidden;
 
     border:1px solid rgba(255,255,255,.06);
-
-    box-shadow:0 0 20px rgba(0,0,0,.25);
 
 }
 
@@ -245,10 +284,11 @@ body::before{
 
 .section-title{
 
-    font-size:22px;
+    font-size:17px;
+
     color:#67e8f9;
 
-    margin-bottom:18px;
+    margin-bottom:12px;
 
     line-height:1.5;
 
@@ -261,9 +301,10 @@ body::before{
 #map{
 
     width:100%;
-    height:380px;
+    height:280px;
 
-    border-radius:18px;
+    border-radius:14px;
+
     overflow:hidden;
 
 }
@@ -277,9 +318,9 @@ body::before{
     display:grid;
 
     grid-template-columns:
-    repeat(2,1fr);
+    repeat(2,minmax(0,1fr));
 
-    gap:12px;
+    gap:10px;
 
 }
 
@@ -292,9 +333,9 @@ body::before{
     #18344d
     );
 
-    border-radius:16px;
+    border-radius:14px;
 
-    padding:18px;
+    padding:12px;
 
     text-align:center;
 
@@ -302,18 +343,20 @@ body::before{
 
 .kpi h3{
 
-    font-size:13px;
+    font-size:11px;
+
     color:#cbd5e1;
 
-    line-height:1.7;
+    line-height:1.6;
 
-    margin-bottom:10px;
+    margin-bottom:8px;
 
 }
 
 .kpi p{
 
-    font-size:28px;
+    font-size:22px;
+
     font-weight:800;
 
     color:#00ffb3;
@@ -326,8 +369,11 @@ body::before{
 
 .charts-slider{
 
+    width:100%;
+
+    min-height:220px;
+
     position:relative;
-    min-height:260px;
 
 }
 
@@ -352,8 +398,8 @@ body::before{
     0%{
         opacity:0;
         transform:
-        translateX(30px)
-        scale(.95);
+        translateX(20px)
+        scale(.96);
     }
 
     100%{
@@ -367,27 +413,21 @@ body::before{
 
 @keyframes glowAnim{
 
-    0%{
-        filter:brightness(.8);
-    }
-
     50%{
-        filter:brightness(1.2);
-    }
-
-    100%{
-        filter:brightness(1);
+        filter:brightness(1.15);
     }
 
 }
 
 .chart-box{
 
+    width:100%;
+
     background:#12283c;
 
-    border-radius:18px;
+    border-radius:14px;
 
-    padding:15px;
+    padding:10px;
 
 }
 
@@ -397,62 +437,137 @@ body::before{
     justify-content:space-between;
     align-items:center;
 
-    margin-bottom:12px;
+    gap:10px;
 
-    color:#67e8f9;
-
-    font-size:14px;
+    margin-bottom:10px;
 
     flex-wrap:wrap;
+
+    font-size:12px;
+
+    color:#67e8f9;
 
 }
 
 .chart{
 
-    height:180px;
+    width:100%;
+
+    height:150px;
+
+    overflow:hidden;
 
 }
 
 .chart svg{
 
-    width:100%;
-    height:100%;
+    width:100% !important;
+    height:100% !important;
+
+    display:block;
 
 }
 
 /* =========================
-   WORKFLOW
+   ANALYSIS
+========================= */
+
+.analysis{
+
+    margin-top:10px;
+
+}
+
+.analysis-item{
+
+    background:#12283c;
+
+    border-radius:12px;
+
+    padding:10px;
+
+    margin-bottom:10px;
+
+}
+
+.analysis-item h4{
+
+    font-size:11px;
+
+    margin-bottom:8px;
+
+    color:#67e8f9;
+
+}
+
+.bar{
+
+    height:8px;
+
+    background:#203548;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.bar span{
+
+    display:block;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+    90deg,
+    #00ffb3,
+    #0ea5e9
+    );
+
+}
+
+/* =========================
+   TABLE
 ========================= */
 
 .table-wrap{
 
+    width:100%;
+
     overflow-x:auto;
+
+    -webkit-overflow-scrolling:touch;
 
 }
 
 table{
 
     width:100%;
+
     border-collapse:collapse;
-    min-width:650px;
 
 }
 
 th,
 td{
 
-    padding:12px;
+    padding:8px;
+
     text-align:center;
 
     border-bottom:1px solid rgba(255,255,255,.08);
 
-    font-size:13px;
+    font-size:11px;
+
+    white-space:nowrap;
 
 }
 
 th{
 
     background:#122536;
+
     color:#67e8f9;
 
 }
@@ -461,11 +576,12 @@ th{
 
 .status{
 
-    padding:6px 12px;
+    padding:4px 8px;
 
-    border-radius:10px;
+    border-radius:8px;
 
-    font-size:12px;
+    font-size:10px;
+
     font-weight:700;
 
 }
@@ -496,67 +612,8 @@ th{
 @keyframes flash{
 
     50%{
-        box-shadow:0 0 15px rgba(255,204,102,.9);
+        box-shadow:0 0 12px rgba(255,204,102,.8);
     }
-
-}
-
-/* =========================
-   ANALYSIS BARS
-========================= */
-
-.analysis{
-
-    margin-top:15px;
-
-}
-
-.analysis-item{
-
-    background:#12283c;
-
-    border-radius:14px;
-
-    padding:14px;
-
-    margin-bottom:12px;
-
-}
-
-.analysis-item h4{
-
-    font-size:14px;
-
-    margin-bottom:10px;
-
-    color:#67e8f9;
-
-}
-
-.bar{
-
-    height:10px;
-
-    background:#203548;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-}
-
-.bar span{
-
-    display:block;
-
-    height:100%;
-
-    background:
-    linear-gradient(
-    90deg,
-    #00ffb3,
-    #0ea5e9
-    );
 
 }
 
@@ -566,11 +623,11 @@ th{
 
     text-align:center;
 
-    padding:20px;
+    padding:16px;
 
     color:#94a3b8;
 
-    font-size:14px;
+    font-size:11px;
 
 }
 
@@ -594,12 +651,19 @@ th{
 
 @media(max-width:768px){
 
+    body{
+
+        overflow-x:hidden;
+
+    }
+
     .topbar{
 
         flex-direction:column;
+
         text-align:center;
 
-        padding:16px;
+        padding:10px;
 
     }
 
@@ -611,48 +675,62 @@ th{
 
     .brand img{
 
-        width:75px;
-        height:75px;
+        width:55px;
+        height:55px;
 
     }
 
     .brand-text h1{
 
-        font-size:18px;
+        font-size:13px;
 
     }
 
     .brand-text span{
 
-        font-size:13px;
+        font-size:10px;
 
     }
 
     .top-icons{
 
         width:100%;
+
         justify-content:center;
 
     }
 
     .main{
 
-        padding:14px;
+        width:100%;
 
-        gap:14px;
+        grid-template-columns:1fr;
+
+        padding:8px;
+
+        gap:10px;
 
     }
 
-    #map{
+    .card{
 
-        height:280px;
+        width:100%;
+
+        padding:10px;
 
     }
 
     .section-title{
 
-        font-size:19px;
         text-align:center;
+
+        font-size:15px;
+
+    }
+
+    #map{
+
+        height:210px;
 
     }
 
@@ -664,59 +742,63 @@ th{
 
     .kpi p{
 
-        font-size:24px;
+        font-size:20px;
 
     }
 
     .chart-header{
 
         flex-direction:column;
+
         text-align:center;
-        gap:6px;
+
+        gap:4px;
 
     }
 
     .chart{
 
-        height:170px;
+        height:130px;
 
     }
 
-    th,
-    td{
+    table{
 
-        font-size:12px;
+        min-width:430px;
 
     }
 
 }
 
-/* SMALL MOBILE */
+/* =========================
+   SMALL MOBILE
+========================= */
 
 @media(max-width:480px){
 
     .menu a{
 
-        font-size:13px;
-        padding:10px 14px;
+        font-size:10px;
 
-    }
-
-    .card{
-
-        padding:14px;
+        padding:7px 10px;
 
     }
 
     .brand-text h1{
 
-        font-size:16px;
+        font-size:12px;
 
     }
 
     #map{
 
-        height:240px;
+        height:180px;
+
+    }
+
+    .chart{
+
+        height:120px;
 
     }
 
@@ -799,9 +881,7 @@ th{
         <div class="card">
 
             <div class="section-title">
-
-                GIS SMART MAP | خريطة البحرين الذكية
-
+                GIS SMART MAP
             </div>
 
             <div id="map"></div>
@@ -810,14 +890,10 @@ th{
 
         <!-- WORKFLOW -->
 
-        <div class="card" style="margin-top:18px;">
+        <div class="card" style="margin-top:12px;">
 
             <div class="section-title">
-
                 Smart Approval Workflow
-                <br>
-                سير الموافقات الذكي
-
             </div>
 
             <div class="table-wrap">
@@ -900,69 +976,41 @@ th{
         <div class="card">
 
             <div class="section-title">
-
                 KPI Dashboard
-                <br>
-                مؤشرات الأداء
-
             </div>
 
             <div class="kpi-grid">
 
                 <div class="kpi">
-
-                    <h3>
-                        Active Licenses
-                    </h3>
-
+                    <h3>Active Licenses</h3>
                     <p>145</p>
-
                 </div>
 
                 <div class="kpi">
-
-                    <h3>
-                        Production Tons
-                    </h3>
-
+                    <h3>Production Tons</h3>
                     <p>2,800</p>
-
                 </div>
 
                 <div class="kpi">
-
-                    <h3>
-                        Water Quality
-                    </h3>
-
+                    <h3>Water Quality</h3>
                     <p>92%</p>
-
                 </div>
 
                 <div class="kpi">
-
-                    <h3>
-                        AI Risk Index
-                    </h3>
-
+                    <h3>AI Risk Index</h3>
                     <p>14%</p>
-
                 </div>
 
             </div>
 
         </div>
 
-        <!-- AI -->
+        <!-- AI ANALYSIS -->
 
-        <div class="card" style="margin-top:18px;">
+        <div class="card" style="margin-top:12px;">
 
             <div class="section-title">
-
                 AI Environmental Analysis
-                <br>
-                التحليل البيئي الذكي
-
             </div>
 
             <div class="charts-slider">
@@ -988,18 +1036,6 @@ th{
                         <div class="chart">
 
                             <svg viewBox="0 0 400 180">
-
-                                <text x="5" y="20" fill="#9ca3af" font-size="11">100</text>
-                                <text x="5" y="60" fill="#9ca3af" font-size="11">80</text>
-                                <text x="5" y="100" fill="#9ca3af" font-size="11">60</text>
-                                <text x="5" y="140" fill="#9ca3af" font-size="11">40</text>
-
-                                <text x="40" y="170" fill="#9ca3af" font-size="11">Jan</text>
-                                <text x="100" y="170" fill="#9ca3af" font-size="11">Feb</text>
-                                <text x="160" y="170" fill="#9ca3af" font-size="11">Mar</text>
-                                <text x="220" y="170" fill="#9ca3af" font-size="11">Apr</text>
-                                <text x="280" y="170" fill="#9ca3af" font-size="11">May</text>
-                                <text x="340" y="170" fill="#9ca3af" font-size="11">Jun</text>
 
                                 <polyline
                                 fill="none"
@@ -1046,17 +1082,6 @@ th{
 
                             <svg viewBox="0 0 400 180">
 
-                                <text x="5" y="20" fill="#9ca3af" font-size="11">10</text>
-                                <text x="5" y="60" fill="#9ca3af" font-size="11">8</text>
-                                <text x="5" y="100" fill="#9ca3af" font-size="11">6</text>
-
-                                <text x="40" y="170" fill="#9ca3af" font-size="11">01</text>
-                                <text x="100" y="170" fill="#9ca3af" font-size="11">02</text>
-                                <text x="160" y="170" fill="#9ca3af" font-size="11">03</text>
-                                <text x="220" y="170" fill="#9ca3af" font-size="11">04</text>
-                                <text x="280" y="170" fill="#9ca3af" font-size="11">05</text>
-                                <text x="340" y="170" fill="#9ca3af" font-size="11">06</text>
-
                                 <polyline
                                 fill="none"
                                 stroke="#38bdf8"
@@ -1069,69 +1094,6 @@ th{
                                 240,74
                                 290,52
                                 340,36
-                                "
-                                />
-
-                            </svg>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- CHART 3 -->
-
-                <div class="chart-slide">
-
-                    <div class="chart-box">
-
-                        <div class="chart-header">
-
-                            <span>
-                                BOD / COD Levels
-                            </span>
-
-                            <span>
-                                COD: 34
-                            </span>
-
-                        </div>
-
-                        <div class="chart">
-
-                            <svg viewBox="0 0 400 180">
-
-                                <text x="5" y="20" fill="#9ca3af" font-size="11">40</text>
-                                <text x="5" y="60" fill="#9ca3af" font-size="11">30</text>
-                                <text x="5" y="100" fill="#9ca3af" font-size="11">20</text>
-
-                                <text x="40" y="170" fill="#9ca3af" font-size="11">Q1</text>
-                                <text x="120" y="170" fill="#9ca3af" font-size="11">Q2</text>
-                                <text x="200" y="170" fill="#9ca3af" font-size="11">Q3</text>
-                                <text x="280" y="170" fill="#9ca3af" font-size="11">Q4</text>
-
-                                <polyline
-                                fill="none"
-                                stroke="#facc15"
-                                stroke-width="4"
-                                points="
-                                40,70
-                                120,92
-                                200,112
-                                280,128
-                                "
-                                />
-
-                                <polyline
-                                fill="none"
-                                stroke="#fb7185"
-                                stroke-width="4"
-                                points="
-                                40,98
-                                120,112
-                                200,124
-                                280,138
                                 "
                                 />
 
@@ -1210,7 +1172,7 @@ L.tileLayer(
 }
 ).addTo(map);
 
-/* GREEN */
+/* GREEN ZONE */
 
 L.polygon(
 [
@@ -1227,7 +1189,7 @@ L.polygon(
 }
 ).addTo(map);
 
-/* YELLOW */
+/* YELLOW ZONE */
 
 L.polygon(
 [
@@ -1244,24 +1206,7 @@ L.polygon(
 }
 ).addTo(map);
 
-/* RED */
-
-L.polygon(
-[
-    [26.20,50.78],
-    [26.10,50.86],
-    [26.02,50.76],
-    [26.08,50.66]
-],
-{
-    color:'#ff4d6d',
-    fillColor:'#ff4d6d',
-    fillOpacity:.35,
-    weight:3
-}
-).addTo(map);
-
-/* SLIDER */
+/* CHART SLIDER */
 
 const slides =
 document.querySelectorAll('.chart-slide');
