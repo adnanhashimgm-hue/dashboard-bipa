@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+SMART AQUACULTURE GIS PLATFORM
+</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    overflow-x:hidden;
+}
+
+body{
+    background:#06131f;
+    color:#fff;
+    font-family:'Cairo',sans-serif;
+}
+
+/* BACKGROUND */
+
+body::before{
+
+    content:'';
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top right,#00ffb31c,transparent 30%),
+    radial-gradient(circle at bottom left,#008cff1c,transparent 30%);
+
+    z-index:-1;
+
+}
+
+/* TOPBAR */
+
+.topbar{
+
+    background:
+    linear-gradient(
+    90deg,
+    #07121f,
+    #0b2036,
+    #081725
+    );
+
+    padding:12px 22px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    gap:20px;
+
+}
+
+/* BRAND */
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.brand img{
+
+    width:95px;
+
+    height:95px;
+
+    object-fit:contain;
+
+    filter:
+    drop-shadow(0 0 12px rgba(255,255,255,.15));
+
+}
+
+.brand-text h1{
+
+    font-size:24px;
+
+    font-family:'Orbitron',sans-serif;
+
+    line-height:1.4;
+
+    letter-spacing:1px;
+
+}
+
+.brand-text span{
+
+    display:block;
+
+    color:#67e8f9;
+
+    font-size:15px;
+
+    margin-top:6px;
+
+    font-weight:700;
+
+}
+
+/* ICONS */
+
+.top-icons{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.icon-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
+    color:#fff;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.icon-btn:hover{
+
+    background:#0ea5e9;
+
+}
+
+/* MENU */
+
+.menu{
+
+    background:#07131f;
+
+    display:flex;
+
+    gap:10px;
+
+    padding:12px 18px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+}
+
+.menu::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+.menu a{
+
+    text-decoration:none;
+
+    color:#fff;
+
+    background:#102437;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+    white-space:nowrap;
+
+    font-weight:700;
+
+    font-size:14px;
+
+}
+
+.menu a:hover,
+.menu a.active{
+
+    background:#0ea5e9;
+
+}
+
+/* MAIN */
+
+.main{
+
+    padding:18px;
+
+    display:grid;
+
+    grid-template-columns:1.8fr 1fr;
+
+    gap:18px;
+
+    align-items:start;
+
+}
+
+/* MAP CARD */
+
+.map-card{
+
+    background:#0c1a29;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 0 25px rgba(0,0,0,.35);
+
+}
+
+.map-header{
+
+    padding:15px 20px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.map-header h2{
+
+    font-size:22px;
+
+    color:#67e8f9;
+
+}
+
+.map-header span{
+
+    background:#0ea5e9;
+
+    padding:6px 14px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+/* MAP */
+
+#map{
+
+    height:420px;
+
+}
+
+/* SIDE */
+
+.side-panel{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+/* PANEL */
+
+.panel-card{
+
+    background:#0c1a29;
+
+    border-radius:22px;
+
+    padding:18px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 0 20px rgba(0,0,0,.25);
+
+}
+
+.panel-title{
+
+    font-size:22px;
+
+    margin-bottom:18px;
+
+    color:#67e8f9;
+
+    line-height:1.6;
+
+}
+
+/* KPI */
+
+.kpis{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+.kpi{
+
+    background:
+    linear-gradient(
+    145deg,
+    #11273b,
+    #18344d
+    );
+
+    border-radius:16px;
+
+    padding:16px;
+
+    text-align:center;
+
+}
+
+.kpi h3{
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+    color:#cbd5e1;
+
+    line-height:1.6;
+
+}
+
+.kpi p{
+
+    font-size:28px;
+
+    font-weight:800;
+
+    color:#00ffb3;
+
+}
+
+/* CHARTS */
+
+.charts-slider{
+
+    position:relative;
+
+    min-height:270px;
+
+}
+
+.chart-box{
+
+    display:none;
+
+}
+
+.chart-box.active-slide{
+
+    display:block;
+
+    animation:
+    smoothSlide 1s ease,
+    glowChart 2s ease;
+
+}
+
+@keyframes smoothSlide{
+
+    0%{
+        opacity:0;
+        transform:
+        translateX(30px)
+        scale(.95);
+    }
+
+    100%{
+        opacity:1;
+        transform:
+        translateX(0)
+        scale(1);
+    }
+
+}
+
+@keyframes glowChart{
+
+    0%{
+        filter:brightness(.7);
+    }
+
+    50%{
+        filter:brightness(1.2);
+    }
+
+    100%{
+        filter:brightness(1);
+    }
+
+}
+
+.chart-box-inner{
+
+    background:#11273b;
+
+    border-radius:18px;
+
+    padding:16px;
+
+}
+
+.chart-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+    font-size:14px;
+
+    color:#67e8f9;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+
+}
+
+.chart{
+
+    height:180px;
+
+    border-left:2px solid rgba(255,255,255,.2);
+
+    border-bottom:2px solid rgba(255,255,255,.2);
+
+}
+
+.chart svg{
+
+    width:100%;
+    height:100%;
+
+}
+
+/* ANALYSIS */
+
+.analysis-item{
+
+    background:#11273b;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    margin-top:12px;
+
+}
+
+.analysis-item h4{
+
+    font-size:14px;
+
+    margin-bottom:10px;
+
+    color:#67e8f9;
+
+    line-height:1.7;
+
+}
+
+.bar{
+
+    height:10px;
+
+    background:#203548;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+}
+
+.bar span{
+
+    display:block;
+
+    height:100%;
+
+    background:
+    linear-gradient(
+    90deg,
+    #00ffb3,
+    #0ea5e9
+    );
+
+}
+
+/* WORKFLOW */
+
+.workflow{
+
+    overflow-x:auto;
+
+}
+
+.workflow table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:650px;
+
+}
+
+.workflow th,
+.workflow td{
+
+    padding:12px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    text-align:center;
+
+    font-size:13px;
+
+}
+
+.workflow th{
+
+    background:#102437;
+
+    color:#67e8f9;
+
+}
+
+/* STATUS */
+
+.status{
+
+    padding:6px 12px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+.green{
+
+    background:#0d4b37;
+
+    color:#00ffb3;
+
+}
+
+.orange{
+
+    background:#4b340d;
+
+    color:#ffcc66;
+
+    animation:pendingFlash 1.2s infinite;
+
+}
+
+.red{
+
+    background:#4b0d0d;
+
+    color:#ff7b7b;
+
+}
+
+@keyframes pendingFlash{
+
+    0%{
+        box-shadow:0 0 0 rgba(255,204,102,.2);
+    }
+
+    50%{
+        box-shadow:0 0 18px rgba(255,204,102,.8);
+    }
+
+    100%{
+        box-shadow:0 0 0 rgba(255,204,102,.2);
+    }
+
+}
+
+/* FOOTER */
+
+.footer{
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+    padding:20px;
+
+    line-height:2;
+
+}
+
+/* MOBILE */
+
+@media(max-width:1100px){
+
+    .main{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .topbar{
+
+        flex-direction:column;
+
+        text-align:center;
+
+        padding:15px;
+
+    }
+
+    .brand{
+
+        flex-direction:column;
+
+        gap:12px;
+
+    }
+
+    .brand img{
+
+        width:80px;
+        height:80px;
+
+    }
+
+    .brand-text h1{
+
+        font-size:18px;
+
+    }
+
+    .brand-text span{
+
+        font-size:14px;
+
+    }
+
+    .main{
+
+        padding:14px;
+
+    }
+
+    #map{
+
+        height:320px;
+
+    }
+
+    .kpis{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .chart-title{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+    <div class="brand">
+
+        <img src="sce-logo-latest.png">
+
+        <div class="brand-text">
+
+            <h1>
+                SMART AQUACULTURE LICENSING PLATFORM
+            </h1>
+
+            <span>
+                منصة الاستزراع المائي الذكي - مملكة البحرين
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="top-icons">
+
+        <button class="icon-btn">⚙</button>
+        <button class="icon-btn">🔔</button>
+        <button class="icon-btn">👤</button>
+
+    </div>
+
+</div>
+
+<!-- MENU -->
+
+<div class="menu">
+
+    <a href="#" class="active">
+        Dashboard | لوحة التحكم
+    </a>
+
+    <a href="#">
+        Applications | الطلبات
+    </a>
+
+    <a href="#">
+        Compliance | الامتثال
+    </a>
+
+    <a href="#">
+        GIS Maps | الخرائط الذكية
+    </a>
+
+    <a href="#">
+        Reports | التقارير
+    </a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <!-- LEFT -->
+
+    <div>
+
+        <!-- MAP -->
+
+        <div class="map-card">
+
+            <div class="map-header">
+
+                <h2>
+                    GIS SMART MAP | خريطة البحرين الذكية
+                </h2>
+
+                <span>
+                    Live Monitoring
+                </span>
+
+            </div>
+
+            <div id="map"></div>
+
+        </div>
+
+        <!-- WORKFLOW -->
+
+        <div class="panel-card workflow" style="margin-top:18px;">
+
+            <div class="panel-title">
+
+                Smart Approval Workflow
+                <br>
+                سير الموافقات الذكي
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Application</th>
+                        <th>Stage</th>
+                        <th>Authority</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Farm A</td>
+                        <td>GIS Review</td>
+                        <td>SCE</td>
+
+                        <td>
+                            <span class="status green">
+                                Approved
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Farm B</td>
+                        <td>Municipality</td>
+                        <td>MOIC</td>
+
+                        <td>
+                            <span class="status orange">
+                                Pending
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Farm C</td>
+                        <td>Inspection</td>
+                        <td>Environment</td>
+
+                        <td>
+                            <span class="status red">
+                                Restricted
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="side-panel">
+
+        <!-- KPI -->
+
+        <div class="panel-card">
+
+            <div class="panel-title">
+
+                KPI Dashboard
+                <br>
+                مؤشرات الأداء
+
+            </div>
+
+            <div class="kpis">
+
+                <div class="kpi">
+                    <h3>Active Licenses</h3>
+                    <p>145</p>
+                </div>
+
+                <div class="kpi">
+                    <h3>Production Tons</h3>
+                    <p>2,800</p>
+                </div>
+
+                <div class="kpi">
+                    <h3>Water Quality</h3>
+                    <p>92%</p>
+                </div>
+
+                <div class="kpi">
+                    <h3>AI Risk Index</h3>
+                    <p>14%</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- AI ANALYSIS -->
+
+        <div class="panel-card">
+
+            <div class="panel-title">
+
+                AI Environmental Analysis
+                <br>
+                التحليل البيئي الذكي
+
+            </div>
+
+            <div class="charts-slider">
+
+                <!-- SLIDE 1 -->
+
+                <div class="chart-box active-slide">
+
+                    <div class="chart-box-inner">
+
+                        <div class="chart-title">
+
+                            <span>Marine Water Quality</span>
+
+                            <span>جودة المياه البحرية</span>
+
+                        </div>
+
+                        <div class="chart">
+
+                            <svg viewBox="0 0 400 160">
+
+                                <text x="5" y="20" fill="#9ca3af" font-size="11">100</text>
+                                <text x="5" y="55" fill="#9ca3af" font-size="11">80</text>
+                                <text x="5" y="90" fill="#9ca3af" font-size="11">60</text>
+                                <text x="5" y="125" fill="#9ca3af" font-size="11">40</text>
+
+                                <text x="40" y="155" fill="#9ca3af" font-size="11">Jan</text>
+                                <text x="100" y="155" fill="#9ca3af" font-size="11">Feb</text>
+                                <text x="160" y="155" fill="#9ca3af" font-size="11">Mar</text>
+                                <text x="220" y="155" fill="#9ca3af" font-size="11">Apr</text>
+                                <text x="280" y="155" fill="#9ca3af" font-size="11">May</text>
+                                <text x="340" y="155" fill="#9ca3af" font-size="11">Jun</text>
+
+                                <polyline
+                                fill="none"
+                                stroke="#00ffb3"
+                                stroke-width="4"
+                                points="
+                                40,120
+                                90,105
+                                140,92
+                                190,76
+                                240,62
+                                290,45
+                                340,28
+                                "
+                                />
+
+                                <circle cx="340" cy="28" r="6" fill="#00ffb3"/>
+
+                                <text x="280" y="20"
+                                fill="#ffffff"
+                                font-size="13">
+                                92%
+                                </text>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SLIDE 2 -->
+
+                <div class="chart-box">
+
+                    <div class="chart-box-inner">
+
+                        <div class="chart-title">
+
+                            <span>Oxygen Levels</span>
+
+                            <span>مستوى الأكسجين</span>
+
+                        </div>
+
+                        <div class="chart">
+
+                            <svg viewBox="0 0 400 160">
+
+                                <text x="5" y="20" fill="#9ca3af" font-size="11">10</text>
+                                <text x="5" y="55" fill="#9ca3af" font-size="11">8</text>
+                                <text x="5" y="90" fill="#9ca3af" font-size="11">6</text>
+
+                                <text x="40" y="155" fill="#9ca3af" font-size="11">01</text>
+                                <text x="100" y="155" fill="#9ca3af" font-size="11">02</text>
+                                <text x="160" y="155" fill="#9ca3af" font-size="11">03</text>
+                                <text x="220" y="155" fill="#9ca3af" font-size="11">04</text>
+                                <text x="280" y="155" fill="#9ca3af" font-size="11">05</text>
+                                <text x="340" y="155" fill="#9ca3af" font-size="11">06</text>
+
+                                <polyline
+                                fill="none"
+                                stroke="#38bdf8"
+                                stroke-width="4"
+                                points="
+                                40,135
+                                90,120
+                                140,110
+                                190,90
+                                240,70
+                                290,52
+                                340,38
+                                "
+                                />
+
+                                <circle cx="340" cy="38" r="6" fill="#38bdf8"/>
+
+                                <text x="250" y="28"
+                                fill="#ffffff"
+                                font-size="13">
+                                8.5 mg/L
+                                </text>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SLIDE 3 -->
+
+                <div class="chart-box">
+
+                    <div class="chart-box-inner">
+
+                        <div class="chart-title">
+
+                            <span>BOD / COD Levels</span>
+
+                            <span>مستويات BOD / COD</span>
+
+                        </div>
+
+                        <div class="chart">
+
+                            <svg viewBox="0 0 400 160">
+
+                                <text x="5" y="20" fill="#9ca3af" font-size="11">40</text>
+                                <text x="5" y="55" fill="#9ca3af" font-size="11">30</text>
+                                <text x="5" y="90" fill="#9ca3af" font-size="11">20</text>
+
+                                <text x="40" y="155" fill="#9ca3af" font-size="11">Q1</text>
+                                <text x="120" y="155" fill="#9ca3af" font-size="11">Q2</text>
+                                <text x="200" y="155" fill="#9ca3af" font-size="11">Q3</text>
+                                <text x="280" y="155" fill="#9ca3af" font-size="11">Q4</text>
+
+                                <polyline
+                                fill="none"
+                                stroke="#facc15"
+                                stroke-width="4"
+                                points="
+                                40,70
+                                120,88
+                                200,105
+                                280,122
+                                "
+                                />
+
+                                <polyline
+                                fill="none"
+                                stroke="#fb7185"
+                                stroke-width="4"
+                                points="
+                                40,92
+                                120,104
+                                200,118
+                                280,132
+                                "
+                                />
+
+                                <text x="210" y="28"
+                                fill="#ffffff"
+                                font-size="13">
+                                COD: 34 | BOD: 12
+                                </text>
+
+                            </svg>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+    Smart Aquaculture Licensing Platform © Bahrain
+
+</div>
+
+<!-- LEAFLET -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+/* MAP */
+
+const map =
+L.map('map').setView(
+[26.05,50.55],
+10
+);
+
+/* TILE */
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+    attribution:'OpenStreetMap'
+}
+).addTo(map);
+
+/* APPROVED */
+
+L.polygon(
+[
+    [26.15,50.35],
+    [26.10,50.42],
+    [25.98,50.38],
+    [26.00,50.28]
+],
+{
+    color:'#00ff99',
+    fillColor:'#00ff99',
+    fillOpacity:.35,
+    weight:3
+}
+).addTo(map);
+
+/* PENDING */
+
+L.polygon(
+[
+    [25.88,50.60],
+    [25.82,50.70],
+    [25.75,50.62],
+    [25.80,50.52]
+],
+{
+    color:'#ffcc66',
+    fillColor:'#ffcc66',
+    fillOpacity:.35,
+    weight:3
+}
+).addTo(map);
+
+/* RESTRICTED */
+
+L.polygon(
+[
+    [26.20,50.78],
+    [26.10,50.86],
+    [26.02,50.76],
+    [26.08,50.66]
+],
+{
+    color:'#ff4d6d',
+    fillColor:'#ff4d6d',
+    fillOpacity:.35,
+    weight:3
+}
+).addTo(map);
+
+/* SLIDER */
+
+const slides =
+document.querySelectorAll('.chart-box');
+
+let currentSlide = 0;
+
+function showSlide(index){
+
+    slides.forEach(slide => {
+
+        slide.classList.remove(
+        'active-slide'
+        );
+
+    });
+
+    slides[index].classList.add(
+    'active-slide'
+    );
+
+}
+
+function nextChart(){
+
+    currentSlide++;
+
+    if(currentSlide >= slides.length){
+
+        currentSlide = 0;
+
+    }
+
+    showSlide(currentSlide);
+
+}
+
+showSlide(currentSlide);
+
+/* AUTO CHANGE */
+
+setInterval(() => {
+
+    nextChart();
+
+}, 5000);
+
+</script>
+
+</body>
+
+</html>
